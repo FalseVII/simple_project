@@ -40,7 +40,7 @@ public class NodeController {
 
 
     //works
-    @PostMapping("/api/v1/node/{id}")
+    @PutMapping("/api/v1/node/{id}")
     public ResponseEntity<?> updateNode(@PathVariable("id") long id,@RequestBody Node node) {
         return ResponseEntity.ok(nodeService.updateNode(id,node));
     }
