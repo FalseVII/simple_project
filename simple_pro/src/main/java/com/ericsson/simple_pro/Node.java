@@ -8,7 +8,7 @@ import jakarta.persistence.*;
 public class Node {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
     @Column (name="name")
     private String name;
     @Column (name="location")
@@ -18,7 +18,7 @@ public class Node {
     @Column (name="longitude")
     private int longitude;
 
-    public Node(int id, String name, String location, int latitude, int longitude) {
+    public Node(long id, String name, String location, int latitude, int longitude) {
         this.id = id;
         this.name = name;
         this.location = location;
@@ -26,7 +26,11 @@ public class Node {
         this.longitude = longitude;
     }
 
-    public int getId() {
+    public Node() {
+
+    }
+
+    public long getId() {
         return id;
     }
 

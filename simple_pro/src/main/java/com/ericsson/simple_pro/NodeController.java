@@ -1,36 +1,43 @@
 package com.ericsson.simple_pro;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class NodeController {
 
-    @GetMapping("/api/vi/nodes")
-    public ResponseEntity<?> allNodes() {
-        return ResponseEntity.ok("Hello World");
+    private final NodeService nodeService;
+
+    public NodeController(NodeService nodeService) {
+        this.nodeService = nodeService;
     }
 
-    @GetMapping("/api/vi/node/{id}")
+
+    @GetMapping("/api/v1/nodes")
+    public ResponseEntity<?> allNodes() {
+        return ResponseEntity.ok("Hello");
+    }
+
+    @GetMapping("/api/v1/node/{id}")
     public ResponseEntity<?> getNode() {
         return ResponseEntity.ok("Hello World");
     }
 
-    @PostMapping("/api/vi/node")
-    public ResponseEntity<?> createNode() {
-        return ResponseEntity.ok("Hello World");
+    @PostMapping("/api/v1/node")
+    public ResponseEntity<?> createNode(@RequestBody Node node) {
+        nodeService.createNode(node.getId(),node.getName(), node.getLocation(), node.getLatitude(), node.getLongitude());
+        return new ResponseEntity<>(node, HttpStatus.OK);
     }
 
-    @PostMapping("/api/vi/node/{id}")
+    @PostMapping("/api/v1/node/{id}")
     public ResponseEntity<?> updateNode() {
         return ResponseEntity.ok("Hello World");
     }
 
-    @DeleteMapping("/api/vi/node/{id}")
+    @DeleteMapping("/api/v1/node/{id}")
     public ResponseEntity<?> deleteNode() {
         return ResponseEntity.ok("Hello World");
     }
