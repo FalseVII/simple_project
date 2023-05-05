@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -16,30 +17,37 @@ public class NodeController {
     }
 
 
+    //works
     @GetMapping("/api/v1/nodes")
     public ResponseEntity<?> allNodes() {
-        return ResponseEntity.ok("Hello");
+        return ResponseEntity.ok(nodeService.allNodes());
     }
 
+    //works
     @GetMapping("/api/v1/node/{id}")
-    public ResponseEntity<?> getNode() {
-        return ResponseEntity.ok("Hello World");
+    public ResponseEntity<?> getNode(@PathVariable("id") long id) {
+        return ResponseEntity.ok(nodeService.getNode(id));
     }
 
+
+    //works
     @PostMapping("/api/v1/node")
     public ResponseEntity<?> createNode(@RequestBody Node node) {
         nodeService.createNode(node.getId(),node.getName(), node.getLocation(), node.getLatitude(), node.getLongitude());
         return new ResponseEntity<>(node, HttpStatus.OK);
     }
 
+
+
+    //works
     @PostMapping("/api/v1/node/{id}")
-    public ResponseEntity<?> updateNode() {
-        return ResponseEntity.ok("Hello World");
+    public ResponseEntity<?> updateNode(@PathVariable("id") long id,@RequestBody Node node) {
+        return ResponseEntity.ok(nodeService.updateNode(id,node));
     }
 
     @DeleteMapping("/api/v1/node/{id}")
-    public ResponseEntity<?> deleteNode() {
-        return ResponseEntity.ok("Hello World");
+    public ResponseEntity<?> deleteNode(@PathVariable("id") long id) {
+        return ResponseEntity.ok(nodeService.deleteNode(id));
     }
 
 }

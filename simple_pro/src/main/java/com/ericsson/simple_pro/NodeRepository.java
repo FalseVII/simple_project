@@ -9,13 +9,17 @@ import java.util.List;
 @Repository
 public interface NodeRepository extends JpaRepository<Node, Long> {
 
-    Node findById(long id);
 
     List<Node> findAll();
+
 
     Node save(Node node);
 
     void deleteById(long id);
+
+    List<Node> findAllById(long id);
+
+    Node findById(long id);
 
 
 }

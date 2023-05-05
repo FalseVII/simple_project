@@ -3,6 +3,9 @@ package com.ericsson.simple_pro;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class NodeService {
     private final NodeRepository nodeRepository;
@@ -11,12 +14,12 @@ public class NodeService {
         this.nodeRepository = nodeRepository;
     }
 
-    public String allNodes() {
-        return "Hello World";
+    public List<Node> getNode(long id) {
+        return nodeRepository.findAllById(id);
     }
 
-    public String getNode(long id) {
-        return "Hello World";
+    public List<Node> allNodes() {
+        return nodeRepository.findAll();
     }
 
     public String createNode(long id, String name, String location, int latitude, int longitude ) {
@@ -25,12 +28,22 @@ public class NodeService {
         return "Node saved.";
     }
 
-    public String updateNode(Node node) {
-        return "Hello World";
+    public String updateNode(long id,Node node) {
+        Node nodeToUpdate = nodeRepository.findById(id);
+        if(nodeToUpdate == null) {
+            return "Node not found.";
+        }
+        nodeToUpdate.setName(node.getName());
+        nodeToUpdate.setLocation(node.getLocation());
+        nodeToUpdate.setLatitude(node.getLatitude());
+        nodeToUpdate.setLongitude(node.getLongitude());
+        nodeRepository.save(nodeToUpdate);
+        return "Node updated.";
     }
 
     public String deleteNode(long id) {
-        return "Hello World";
+        nodeRepository.deleteById(id);
+        return "Node deleted.";
     }
 
 }
